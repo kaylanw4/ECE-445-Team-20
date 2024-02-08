@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1707433884 "/Users/kaylanwang/Desktop/ECE-445-Team-20-Notebook/notebooks/Kaylan/docs/project_proposal.tex" "project_proposal.pdf" "project_proposal" 1707433885 0
-  "/Users/kaylanwang/Desktop/ECE-445-Team-20-Notebook/notebooks/Kaylan/docs/project_proposal.tex" 1707433884 9479 8c50fc377497496c2cd06323778bdfae ""
+["pdflatex"] 1707434120 "/Users/kaylanwang/Desktop/ECE-445-Team-20-Notebook/notebooks/Kaylan/docs/project_proposal.tex" "project_proposal.pdf" "project_proposal" 1707434120 0
+  "/Users/kaylanwang/Desktop/ECE-445-Team-20-Notebook/notebooks/Kaylan/docs/project_proposal.tex" 1707434120 9481 dee9e5815c8d3d445a4d79d3f5040ffb ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -63,8 +63,8 @@
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1692840162 7883453 07fc94c85bff98e866b9042d7277cd2f ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
   "block_diagram.png" 1707348434 55166 0522e1955c0c70325b95c4c1b3425a83 ""
-  "project_proposal.aux" 1707433885 2662 17f6475100a990da2c826339aceb08e0 "pdflatex"
-  "project_proposal.tex" 1707433884 9479 8c50fc377497496c2cd06323778bdfae ""
+  "project_proposal.aux" 1707434120 2662 17f6475100a990da2c826339aceb08e0 "pdflatex"
+  "project_proposal.tex" 1707434120 9481 dee9e5815c8d3d445a4d79d3f5040ffb ""
   "visual_aid.jpeg" 1707254755 616530 68d8a15e0ae3ab7b3592cad1302888f6 ""
   (generated)
   "project_proposal.aux"
