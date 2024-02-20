@@ -7,6 +7,7 @@
 \usepackage{mathrsfs}
 \usepackage{multirow}
 \usepackage{siunitx}
+\bibliographystyle{IEEEtran}
 \setlength\topmargin{-1.1in} \addtolength\textheight{2.1in}
 \addtolength{\oddsidemargin}{-0.2in}
 \addtolength{\evensidemargin}{-0.1in} \textwidth 5.8in
@@ -64,18 +65,30 @@ signal to the LEDs to display on the back and arms of the wearable.
 \subsection{Visual Aid}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{visual_aid.jpeg}
+    \includegraphics[width=0.8\textwidth]{visual_aid.jpg}
     \caption{Visual Aid mockup of the wearable}
     \label{fig:my_label}
 \end{figure}
 \subsection{High Level Requirements}
 \begin{enumerate}
-    \item The device should be able to last at least 1 hour on a full battery.
-    \item The device should correctly detect and interpret specific arm 
-    gestures with a signal recognition accuracy of 90\%. 
+    \item The device should be able to maintain full functionality 
+    for at least 1 hour under standard operating conditions. 
+    We define standard operating conditions as continuous use 
+    at an ambient temperature of 22°C. 
+
+    \item The device should correctly detect and interpret 
+    predefined arm gestures (right/left signal, slowing down, and 
+    crash detection) with a minimum accuracy of 90\%. Accuracy 
+    will be measured as a percentage of correctly identified 
+    gestures performed under a controlled environment. 
     \item The LEDs should be visible from a distance of at least 
-    250 feet in low light conditions to ensure that they are clearly visible at both day and night. 
+    250 feet in daylight conditions (ex. clear skies at noon) to ensure that they are clearly visible at both day and night. 
+
 \end{enumerate}
+
+
+
+
 \newpage
 \section{Design}
 \subsection{Block Diagram}
@@ -88,30 +101,36 @@ signal to the LEDs to display on the back and arms of the wearable.
 \subsection{Subsystem Overview}
     \subsubsection{Control Unit:} 
     We will design our PCB and microcontroller to be able to 
-    receive data from the sensors, analyze the data, and display 
-    the correct signal on the LEDs. The PCB will contain the 
-    microcontroller, power the sensor suite, and contain digital 
-    logic to control the LEDs. We will use the ESP32 microcontroller 
-    to process the data from the sensors and output the correct 
-    signals to the LEDs.
+    receive data through SPI from the sensors, analyze the data, 
+    and display the correct signal on the LEDs. The data will 
+    consist of acceleration, rotational, and magnetic orientation
+    data from the 9 degrees of freedom (9DoF) IMU. The PCB will 
+    contain the microcontroller, power the sensor suite, and 
+    contain digital logic to control the LEDs. We will use the 
+    ESP32 microcontroller \cite{EspressifESP32} to process the data from the sensors 
+    and output the correct signals to the LEDs. 
     \subsubsection{Power Subsystem:} 
 	We will use a 5V rechargeable battery (Li-Ion or LiPo) to 
     power the components, 5V for the LEDs, and use a voltage 
-    regulator to power the microcontroller and sensors at 3.3V. 
+    regulator \cite{DiodesIncorporatedAP2112} to power the microcontroller and sensors at 3.3V. 
     We can place the battery in an inner pocket of the wearable,
-     making it easy to wire it to all parts.
+     making it easy to wire it to all parts. 
     \subsubsection{Sensors Subsystem:} 
     For the sensors, we will use a 3.3V 9dof IMU (accelerometer, 
-    gyroscope, magnetometer) for each arm, and use the combined 
+    gyroscope, magnetometer) \cite{STMicroelectronics2015LSM9DS1} for each arm, and use the combined 
     data from both to determine the nature of the motion. In an 
     accident for example, the acceleration will spike, indicating 
     an accident. To distinguish between the other signals, we will
-     use the gyroscope to determine the angle of the gesture. 
+     use the gyroscope to determine the angle of the gesture. The 
+     IMUs will be powered directly by the power subsystem through 
+     a voltage regulator to step the voltage down to 3.3V. The 
+     sensors will communicate with the ESP32 microcontroller 
+     through SPI for data transfer. 
     \subsubsection{LEDs Subsystem:} 
     We will use 5V LED strips placed on the back and arms of the 
     wearable to display the information. The LEDs will be arranged 
-    in a way that will make it clear to drivers and pedestrians
-     what the rider is trying to signal.
+    on the back of the arms and over the shoulder from the 
+    shoulder blade to the upper chest area (for front visibility). 
 
 
 \subsection{Subsystem Requirements}
@@ -120,80 +139,107 @@ signal to the LEDs to display on the back and arms of the wearable.
 The control unit should be able to receive SPI data from the 
 sensor subsystem and use the ESP32 microcontroller to analyze 
 it in order to route the 5V from the battery to power the LEDs. 
+To control the LEDs, we will add transistors \cite{MicrochipVN10K} to the PCB. 
 
-\textbf{Requirements:} The LEDs should light up according to the signals within 1 second.
-Should also correctly identify the arm gestures with an accuracy of 90\%
+\textbf{Requirements:} 
+\begin{itemize}
+    \item Must be able to communicate with the sensors and LEDs through the PCB
+    \item Must be able to properly filter out noise from the sensor data
+    \item Must be able to determine the correct movements/accident from the sensor data
+\end{itemize}
+
+\textbf{Verification:}
+\begin{itemize}
+    \item The control unit will be tested by connecting the sensors and 
+    LEDs to the PCB and testing the signals. The signals will be 
+    tested by moving the sensors in the correct manner and 
+    verifying that the LEDs light up correctly.
+\end{itemize}
 
 \subsubsection{Power Subsystem:} 
 The Power subsystem should be able to output 5V through the control unit to power the LEDs, as well as output 3.3V to power the Control and Sensors subsystems. 
 
-\textbf{Requirement:} The device should be able to last at least 1 hour on a full battery.
+\textbf{Requirement:} 
+\begin{itemize}
+    \item Supply sufficient 3.3V-5V power to the 
+    other components and subsystems.
+\end{itemize}
+
+
+\textbf{Verification:} 
+\begin{itemize}
+    \item The power will be turned on and a 
+    multimeter will be used to verify the correct voltage is 
+    supplied to all the separate components.
+\end{itemize}
 
 \subsubsection{Sensors Subsystem:}
 The sensor subsystem should contain an IMU (accelerometer, gyroscope, and magnetometer) for each arm, read and controlled by the ESP32 microcontroller via an SPI signal. The data should contain acceleration, rotational, and cardinal direction data and should be filtered properly so as to not miss vital information and not cause false signals. The IMUs will be powered by a 3.3V input via the Power Subsystem.
 
+\textbf{Requirement:}
+\begin{itemize}
+    \item Must be able to constantly communicate with the 
+    ESP32 throughout a power cycle (1 hour). 
+\end{itemize}
+
+
+\textbf{Verification:}
+\begin{itemize}
+    \item Connect the sensors to the ESP32 and verify 
+    through software that the ESP32 is receiving all the 
+    correct information at a reasonably fast rate. 
+
+\end{itemize}
+
 \subsubsection{LEDs Subsystem:} 
 The LED subsystem should be able to turn on the LEDs when powered by a 5V input from the control/power subsystems.
 
-\textbf{Requirement:} The LEDs should be visible from a distance of at least 250 feet in low light conditions. 
+\textbf{Requirement:} 
+\begin{itemize}
+    \item Must be able to turn on and off when instructed to by the microcontroller.
+    \item Must be bright enough for drivers to see at night at a reasonable distance (250 ft).
+    \item Must be able to display different colors for turn signals/hazards and braking.
+\end{itemize}
 
+\textbf{Verification:}
+\begin{itemize}
+    \item Connect the LEDs to the PCB and use software to turn them on and off.
+    \item When powered by the power subsystem, walk 250 ft away and verify that they are visible.
+    \item Modify the RGB values of the LEDs through software on the ESP32.
+\end{itemize}
 
 \subsection{Tolerance Analysis}
-The project will mainly depend on the signals received from the 
-gyroscope and the accelerometer. Naturally, this will be our most 
-important task. However, it might be tricky to set up the data to 
-correctly reflect what we would like to receive. For instance, 
-the acceleration would increase once the rider starts riding the 
-bike, this might cause a false indication for turning the hazard 
-lights on. The same might be true with slowing down. 
-
-Additionally, we will use the gyroscope for handling the 
-orientation of the hands to figure out the corresponding signals. 
-We might face difficulties if the gyroscope is very sensitive to 
-slight movements. Sometimes the rider would like to lift one hand 
-slightly to shake it, that alone could cause a false turn signal. 
-
-A big part of the process will be removing unnecessary information. 
-In doing that, we take the risk of neglecting important data. 
-If we set the acceleration threshold for the hazard too high, 
-we might never turn the lights on when we actually need them. 
-
-Lastly, we will be using many LEDs and a huge battery that allows 
-recharging. We will need to be careful to not cause the battery to 
-overheat. Overheating would run the risk of damaging the 
-rider, as well as affecting the rest of the parts negatively. Our worst case operating temperature is 77.8 degrees 
-celsius, but will likely never reach this because we will not 
-be using the wifi modem in the ESP32 controller, greatly reducing 
-the current draw. 
+TODO
 
 \section{Ethics and Safety}
 \subsection{Ethical Considerations}
-We must consider privacy concerns of the user because we will 
-be collecting and processing data constantly during a 
-ride/commute. We can limit the data collection to IMU data, 
-so that nothing personally identifiable is collected, as well 
-as deleting any data past a certain period of time. We also
-have to consider the accuracy of the system, as it is a safety
-device. We have to make sure that the system is reliable and
-accurate, so that it does not fail when it is needed most.
-We also have to consider the patent and intellectual property
-rights of the system.
+The biggest concern as it relates to ethics and safety for 
+this project is with regard to the safety of the user and 
+those on the road around the user. Under the IEEE code of 
+ethics, we are required to prioritize the safety of the 
+safety of the public \cite{IEEEethics2024}. If the wearable isn’t user
+ friendly enough, or restricts any movements, this can lead 
+ to potentially catastrophic accidents. We can solve this by 
+ integrating the electronics out of the way of the user, 
+ such as in the inner pockets of the jacket (for the PCB 
+ and battery), and providing ample slack in the wires 
+ throughout. This will allow the user to move more naturally.
+  Another concern might be the privacy of the user \cite{IEEEethics2024}
+   because we will be collecting and processing data constantly 
+   during a ride/commute. We can limit the data collection to 
+   IMU data, so that nothing personally identifiable is
+    collected, as well as deleting any data past a certain 
+    period of time. 
+
+
+
 
 \subsection{Safety Considerations}
-We have to consider the brightness of the LEDs, and 
-if they can be distracting to other drivers and pedestrians. 
-Having bright LEDs can be beneficial for low light or adverse 
-conditions, but can also be harmful if they dazzle other drivers, 
-impairing their vision. There are also consumer product safety 
-standards that we need to follow for wearable technology, such 
-as those related to electronics devices and battery safety.
+TODO
 
+\cite{CFR571_108}
 
-
-% \begin{thebibliography}{99}
-% %\bibitem{5} A. Mandelis, ``\emph{Diffusion waves and their uses}", Phys. Today \textbf{66}, 29-34 (2000).
-
-% \end{thebibliography}
+\bibliography{references}
 
 
 \end{document} 

@@ -4,3 +4,9 @@
 *.fls
 *.log
 *.synctex.gz
+*.fdb_latexmk
+*.toc
+*.bbl
+*.blg
+*.bcf
+
