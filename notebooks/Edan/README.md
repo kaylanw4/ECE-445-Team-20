@@ -1,5 +1,5 @@
 # 02/21/2024
-** Pins we will need to use on the ESP32-S3-WROOM-1 **
+### Pins we will need to use on the ESP32-S3-WROOM-1
 * Power -> 3V3
 * Ground -> GND
 * Enable -> EN
