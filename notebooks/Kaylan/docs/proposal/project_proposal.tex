@@ -72,24 +72,24 @@ signal to the LEDs to display on the back and arms of the wearable.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{visual_aid.jpg}
-    \caption{Visual Aid mockup of the wearable}
+    \caption{Visual Aid mockup of the wearable \cite{VectorStock2024}}
     \label{fig:my_label}
 \end{figure}
 \subsection{High Level Requirements}
 \begin{enumerate}
-    \item The device should be able to maintain full functionality 
-    for at least 1 hour under standard operating conditions. 
-    We define standard operating conditions as continuous use 
-    at an ambient temperature of 22°C. 
+    \item The device should be able to correctly detect 
+    predefined arm gestures (raising right/left arm for 
+    turn signals, forearm down for slowing down) with a 
+    minimum accuracy of 90\%. 
 
-    \item The device should correctly detect and interpret 
-    predefined arm gestures (right/left signal, slowing down, and 
-    crash detection) with a minimum accuracy of 90\%. Accuracy 
-    will be measured as a percentage of correctly identified 
-    gestures performed under a controlled environment. 
-    \item The LEDs should be visible from a distance of at least 
-    250 feet in daylight conditions (ex. clear skies at noon) to ensure that they are clearly visible at both day and night. 
+    \item The device should be able to correctly map the arm 
+    gestures into the different indications on the LEDs 
+    (turn signal, brake light, hazard).
 
+    \item The turn signals should be visible and easily 
+    identifiable from a distance of at least 250 feet in 
+    daylight conditions (ex. clear skies at noon) to ensure 
+    that they are clearly visible at both day and night. 
 \end{enumerate}
 
 \newpage
@@ -151,14 +151,6 @@ To control the LEDs, we will add transistors \cite{MicrochipVN10K} to the PCB.
     \item Must be able to determine the correct movements/accident from the sensor data
 \end{itemize}
 
-\textbf{Verification:}
-\begin{itemize}
-    \item The control unit will be tested by connecting the sensors and 
-    LEDs to the PCB and testing the signals. The signals will be 
-    tested by moving the sensors in the correct manner and 
-    verifying that the LEDs light up correctly.
-\end{itemize}
-
 \subsubsection{Power Subsystem:} 
 The Power subsystem should be able to output 5V through the control unit to power the LEDs, as well as output 3.3V to power the Control and Sensors subsystems. 
 
@@ -166,14 +158,6 @@ The Power subsystem should be able to output 5V through the control unit to powe
 \begin{itemize}
     \item Supply sufficient 3.3V-5V power to the 
     other components and subsystems.
-\end{itemize}
-
-
-\textbf{Verification:} 
-\begin{itemize}
-    \item The power will be turned on and a 
-    multimeter will be used to verify the correct voltage is 
-    supplied to all the separate components.
 \end{itemize}
 
 \subsubsection{Sensors Subsystem:}
@@ -185,15 +169,6 @@ The sensor subsystem should contain an IMU (accelerometer, gyroscope, and magnet
     ESP32 throughout a power cycle (1 hour). 
 \end{itemize}
 
-
-\textbf{Verification:}
-\begin{itemize}
-    \item Connect the sensors to the ESP32 and verify 
-    through software that the ESP32 is receiving all the 
-    correct information at a reasonably fast rate. 
-
-\end{itemize}
-
 \subsubsection{LEDs Subsystem:} 
 The LED subsystem should be able to turn on the LEDs when powered by a 5V input from the control/power subsystems.
 
@@ -202,13 +177,6 @@ The LED subsystem should be able to turn on the LEDs when powered by a 5V input 
     \item Must be able to turn on and off when instructed to by the microcontroller.
     \item Must be bright enough for drivers to see at night at a reasonable distance (250 ft).
     \item Must be able to display different colors for turn signals/hazards and braking.
-\end{itemize}
-
-\textbf{Verification:}
-\begin{itemize}
-    \item Connect the LEDs to the PCB and use software to turn them on and off.
-    \item When powered by the power subsystem, walk 250 ft away and verify that they are visible.
-    \item Modify the RGB values of the LEDs through software on the ESP32.
 \end{itemize}
 
 \subsection{Tolerance Analysis}
@@ -274,7 +242,18 @@ period of time.
 
 
 \subsection{Safety Considerations}
-We have to consider the brightness of the LEDs, and if they can be distracting to other drivers and pedestrians. Having bright LEDs can be beneficial for low light or adverse conditions, but can also be harmful if they dazzle other drivers, impairing their vision. There aren’t any safety regulatory requirements for LEDs for bicycles relating to the brightness of the lights, so we make sure we are following the vehicle regulations for turn signals. \cite{CFR571_108} There are also consumer product safety standards that we need to follow for wearable technology, such as those related to electronics devices and battery safety.
+The IEEE Code of Ethics mentions that it is important
+to “hold paramount the safety, health, and welfare” of 
+the public”. \cite{IEEEethics2024}
+We have to consider the brightness of the LEDs, 
+and if they can be distracting to other drivers and 
+pedestrians. Having bright LEDs can be beneficial for 
+low light or adverse conditions, but can also be harmful 
+if they dazzle other drivers, impairing their vision. 
+There aren’t any safety regulatory requirements for 
+LEDs for bicycles relating to the brightness of the 
+lights, so we make sure we are following the vehicle 
+regulations for turn signals. \cite{CFR571_108} 
 
 
 \newpage
