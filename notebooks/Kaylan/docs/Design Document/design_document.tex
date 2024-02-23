@@ -145,11 +145,9 @@ Tentative plan for physical design: For the LEDs, we can attach velcro strips at
             \end{itemize}
         \end{itemize} &
         \begin{itemize}[leftmargin=*, nosep, after=\strut]
-            \item Connect the IMU to the ESP such that the ESP can print the IMU acceleration readings from the accelerometer. Drop 3 times (once for each x, y, z axis), and verify that the acceleration is g±5m/s
-            \item Connect the IMU to the ESP such that the ESP can print the IMU gauss reading from the magnetometer. Point the IMU in different directions and verify that the gauss peaks when pointing North.
-            \item Connect the IMU to the ESP such that the ESP can print the IMU angular rate readings from the gyroscope. Spin the IMU using a motor and verify that the angular rate readings match the dps of the motor ±20 dps.
-            \item Move the IMU and print on the ESP the detected turn signal. The printed line should match the turn signal being made.
-            \item Move the IMU and use a multimeter to verify that a 4.8±0.3V signal is being output to the LEDs
+            \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU acceleration readings from the accelerometer, gauss reading from the magnetometer, and the angular rate readings from the gyroscope. Drop 3 times (once for each x, y, z axis), and verify that the acceleration is g±5m/s. Point the IMU in different directions and verify that the gauss peaks when pointing North. Spin the IMU using a motor and verify that the angular rate readings match the dps of the motor ±20 dps.
+            \item Using the IMU imitate the motion of each of the arm gestures and print out the detected turn signal using the software of the ESP32. Verify if the correct turn signal is displayed on the LED
+            \item Move the IMU at a constant velocity and stop quickly (simulate a crash) and verify that the hazard signal is activated through the ESP32 software.
         \end{itemize} \\
         \bottomrule
         \end{tabular}
@@ -175,8 +173,8 @@ Tentative plan for physical design: For the LEDs, we can attach velcro strips at
             
         \end{itemize} &
         \begin{itemize}[leftmargin=*, nosep, after=\strut]
-            \item The power will be turned on and a multimeter will be used to verify that the voltage output by one of the voltage regulators is 3.3±0.3V
-            \item The power will be turned on and a multimeter will be used to verify that the voltage output by the other voltage regulator is 4.8±0.3V
+            \item The battery will be connected to the voltage regulator and a multimeter will be used to verify that the voltage output by one of the voltage regulators is 3.3±0.3V
+            \item To use the multimeter, the positive lead will be connected to the output of the voltage regulator and the negative lead will be connected to the ground of the voltage regulator
             \item Measure the temperature using a thermometer during operation and ensure it is below 50 C
         \end{itemize} \\
         \bottomrule
@@ -212,9 +210,9 @@ Tentative plan for physical design: For the LEDs, we can attach velcro strips at
             
         \end{itemize} &
         \begin{itemize}[leftmargin=*, nosep, after=\strut]
-            \item Connect the IMU to the ESP such that the esp can print the IMU acceleration readings from the accelerometer. Drop 3 times (once for each x, y, z, axis), and verify that the acceleration is g±5m/s
-            \item Connect the IMU to the ESP such that the ESP can print the IMU gauss reading from the magnetometer. Point the IMU in different directions and verify that the gauss peaks when pointing North.
-            \item Connect the IMU to the ESP such that the ESP can print the IMU angular rate readings from the gyroscope. Spin the IMU using a motor and verify that the angular rate readings match the dps of the motor ±20 dps.
+            \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU acceleration readings from the accelerometer. Drop 3 times (once for each x, y, z, axis), and verify that the acceleration is g±5m/s
+            \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU gauss reading from the magnetometer. Point the IMU in different directions and verify that the gauss peaks when pointing North.
+            \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU angular rate readings from the gyroscope. Spin the IMU using a motor and verify that the angular rate readings match the dps of the motor ±20 dps.
             
         \end{itemize} \\
         \bottomrule
@@ -226,7 +224,7 @@ Tentative plan for physical design: For the LEDs, we can attach velcro strips at
 
     \begin{table}[h]
         \centering
-        \caption{Sensor Subsystem Requirements and Verification}
+        \caption{LED Subsystem Requirements and Verification}
         \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
         \toprule
         \textbf{Requirements} & \textbf{Verification} \\
@@ -257,7 +255,7 @@ and the ESP32. Considering that our product is a wearable, it is important that 
 
 \noindent Total current draw: 364.2 mA
 
-\noindent The assumed ambient temperature: 25°C 
+\noindent Assumed ambient temperature: 25°C 
 \[
 \Delta T = I_{\text{out}} (V_{\text{in}} - V_{\text{out}}) (\Theta_{\text{jc}}) = 0.36 \times (4.8 - 3.3) \times 5 = 2.7^\circ\text{C}
 \]
