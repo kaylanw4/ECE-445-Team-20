@@ -114,7 +114,7 @@ signal to the LEDs to display on the back and arms of the wearable.
 \end{figure}
 
 \subsection{Physical Design}
-Tentative plan for physical design: For the LEDs, we can attach velcro strips at the wrist, elbow, back shoulder, and upper chest areas (both left and right sides), and attach the LED strip along the velcro strips. For the IMUs, place them into small drawstring bags (figure 3) and attach velcro to the outside of the bag and to the inner part of the jacket sleeve near the wrists. The velcro will allow for easier removability for the electronics to aid in debugging as well as for the user to be able to wash the jacket. The PCB and battery can be placed in the inner jacket pockets. For the wiring, we will be physically wiring the LEDs and IMU through the inner part of the jacket, making a hole in the back to route wires from the inside to the outside. 
+Tentative plan for physical design: For the LEDs, we can attach velcro strips at the wrist, elbow, back shoulder, and upper chest areas (both left and right sides), and attach the LED strip along the velcro strips. For the IMUs, place them into small drawstring bags and attach velcro to the outside of the bag and to the inner part of the jacket sleeve near the wrists. The velcro will allow for easier removability for the electronics to aid in debugging as well as for the user to be able to wash the jacket. The PCB and battery can be placed in the inner jacket pockets. For the wiring, we will be physically wiring the LEDs and IMU through the inner part of the jacket, making a hole in the back to route wires from the inside to the outside. 
 \subsection{Subsystem Requirements and Verifications}
     \subsubsection{Control Unit} 
     The control unit to be able to receive data through the SPI protocol from the sensors and analyze the data in order to route the 4.8V from the battery to power the LEDs. The data will consist of acceleration, rotational, and magnetic orientation data from the 9 degrees of freedom (9DoF) IMU. The PCB will contain the microcontroller, power the sensor suite, and contain digital logic to control the LEDs. We will use the 
@@ -292,7 +292,7 @@ The total cost of parts will be approximately $\$141.60$ and the expected labor 
 The biggest concern as it relates to ethics and safety for 
 this project is with regard to the safety of the user and 
 those on the road around the user. Under the IEEE code of 
-ethics, we are required to prioritize the safety of the 
+ethics, we are required to prioritize the 
 safety of the public \cite{IEEEethics2024}. If the wearable isn’t user
 friendly enough, or restricts any movements, this can lead 
 to potentially catastrophic accidents. We can solve this by 
@@ -311,7 +311,7 @@ period of time.
 
 
 \subsection{Safety Considerations}
-We have to consider the brightness of the LEDs, and if they can be distracting to other drivers and pedestrians. Having bright LEDs can be beneficial for low light or adverse conditions, but can also be harmful if they dazzle other drivers, impairing their vision. There aren’t any safety regulatory requirements for LEDs for bicycles relating to the brightness of the lights, so we make sure we are following the vehicle regulations for turn signals. \cite{CFR571_108} There are also consumer product safety standards that we need to follow for wearable technology, such as those related to electronics devices and battery safety.
+We have to consider the brightness of the LEDs, and if they can be distracting to other drivers and pedestrians. Having bright LEDs can be beneficial for low light or adverse conditions, but can also be harmful if they dazzle other drivers, impairing their vision. There aren’t any safety regulatory requirements for LEDs for bicycles relating to the brightness of the lights, so we make sure we are following the vehicle regulations for turn signals. \cite{CFR571_108} There are also consumer product safety standards that we need to follow for wearable technology, such as those related to electronics devices and battery safety. It is also important to note that wearing a battery is always dangerous. Because of this we will be following the guidelines on battery safety outlined by UIUC \cite{UIUCBatterySafety2023}. In addition, we verified in our tolerance analysis that the linear regulators will not get too hot to ensure the safety of the users.
 
 
 \newpage
