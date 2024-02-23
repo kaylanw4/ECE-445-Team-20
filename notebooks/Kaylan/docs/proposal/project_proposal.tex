@@ -37,14 +37,21 @@
 \section{Introduction}
 \subsection{Problem}
 Cyclists, skateboarders, and scooter riders often face 
-challenges in signaling their intentions to drivers, 
-especially in low-light conditions. The traditional
- method of using hand signals is not always visible or 
- practical, particularly at night or during adverse weather 
- conditions. This lack of clear communication can lead to 
- dangerous situations on the road, as other motorists may 
- fail to recognize the cyclist's intended maneuvers, or if 
- an accident occurs. 
+challenges in signaling their intentions to drivers,
+especially in low-light conditions. According to the CDC, 
+1,000 cyclists die and 130,000 are injured every year on 
+the road in the United States \cite{CDC2024BicycleSafety}. 
+These numbers don’t include other riders sharing the road on 
+things like skateboards and scooters. There are many interventions 
+in place to prevent these accidents, such as fluorescent or 
+retro-reflective clothing, or active lighting on the bicycle 
+(required by law in most states) \cite{CDC2024BicycleSafety}, 
+but the traditional method of using hand signals is not always 
+visible or practical, particularly at night or during adverse 
+weather conditions. This lack of clear communication can lead 
+to dangerous situations on the road, as other motorists may 
+fail to recognize the cyclist's intended maneuvers, or if an 
+accident occurs.
 
 \subsection{Solution}
 
@@ -82,14 +89,9 @@ signal to the LEDs to display on the back and arms of the wearable.
     turn signals, forearm down for slowing down) with a 
     minimum accuracy of 90\%. 
 
-    \item The device should be able to correctly map the arm 
-    gestures into the different indications on the LEDs 
-    (turn signal, brake light, hazard).
+    \item The device should be able to correctly map the arm gestures into the different indications on the LEDs. The turn signal will be indicated by either the left or right side LED flashing orange, while the brake/slow down signal will be indicated by all LEDs turning red. A crash or accident will activate the hazard light, indicated by all LEDs flashing red. 
 
-    \item The turn signals should be visible and easily 
-    identifiable from a distance of at least 250 feet in 
-    daylight conditions (ex. clear skies at noon) to ensure 
-    that they are clearly visible at both day and night. 
+    \item The turn signals, brake lights, and hazard signals should all be visible and easily identifiable from a distance of at least 250 feet to ensure that they are clearly visible at both day and night. 
 \end{enumerate}
 
 \newpage
@@ -113,11 +115,7 @@ signal to the LEDs to display on the back and arms of the wearable.
     ESP32 microcontroller \cite{EspressifESP32} to process the data from the sensors 
     and output the correct signals to the LEDs. 
     \subsubsection{Power Subsystem:} 
-	We will use a 5V rechargeable battery (Li-Ion or LiPo) to 
-    power the components, 5V for the LEDs, and use a voltage 
-    regulator \cite{DiodesIncorporatedAP2112} to power the microcontroller and sensors at 3.3V. 
-    We can place the battery in an inner pocket of the wearable,
-     making it easy to wire it to all parts. 
+	We will use a 4.8V rechargeable battery to power the components, 4.8V for the LEDs, and use a voltage regulator \cite{DiodesIncorporatedAP2112} to power the microcontroller and sensors at 3.3V. We can place the battery in an inner pocket of the wearable, making it easy to wire it to all parts. 
     \subsubsection{Sensors Subsystem:} 
     For the sensors, we will use a 3.3V 9dof IMU (accelerometer, 
     gyroscope, magnetometer) \cite{STMicroelectronics2015LSM9DS1} for each arm, and use the combined 
@@ -130,10 +128,7 @@ signal to the LEDs to display on the back and arms of the wearable.
      sensors will communicate with the ESP32 microcontroller 
      through SPI for data transfer. 
     \subsubsection{LEDs Subsystem:} 
-    We will use 5V LED strips placed on the back and arms of the 
-    wearable to display the information. The LEDs will be arranged 
-    on the back of the arms and over the shoulder from the 
-    shoulder blade to the upper chest area (for front visibility). 
+    The LED subsystem should be able to turn on the LEDs when powered by a 4.8V input from the control/power subsystems. We will use 2 LED strips with a length of 80 cm each. The strips will start from the upper chest toward the upper back, then it will go towards the wrist, refer to the visual aid for clarifications. 
 
 
 \subsection{Subsystem Requirements}
@@ -141,82 +136,70 @@ signal to the LEDs to display on the back and arms of the wearable.
 \subsubsection{Control Unit:} 
 The control unit should be able to receive SPI data from the 
 sensor subsystem and use the ESP32 microcontroller to analyze 
-it in order to route the 5V from the battery to power the LEDs. 
+it in order to route the 4.8V from the battery to power the LEDs. 
 To control the LEDs, we will add transistors \cite{MicrochipVN10K} to the PCB. 
 
 \textbf{Requirements:} 
 \begin{itemize}
     \item Must be able to communicate with the sensors and LEDs through the PCB
-    \item Must be able to properly filter out noise from the sensor data
+    \item Must be able to determine the correct turn signal from the IMU
     \item Must be able to determine the correct movements/accident from the sensor data
 \end{itemize}
 
 \subsubsection{Power Subsystem:} 
-The Power subsystem should be able to output 5V through the control unit to power the LEDs, as well as output 3.3V to power the Control and Sensors subsystems. 
+The Power subsystem should be able to output 4.8V through the control unit to power the LEDs, as well as output 3.3V to power the Control and Sensors subsystems.  The power to the LEDs should pass through transistors \cite{MicrochipVN10K} in order for the microcontroller to activate/deactivate the LEDs. 
 
-\textbf{Requirement:} 
+\textbf{Requirements:} 
 \begin{itemize}
-    \item Supply sufficient 3.3V-5V power to the 
-    other components and subsystems.
+    \item Must be able to supply 3.3±0.3V to the IMUs and the ESP32
+    \item Must be able to supply 4.8±0.3V to the LEDs
+    \item The temperature of the battery should stay below 50 C during operation
+    
 \end{itemize}
 
 \subsubsection{Sensors Subsystem:}
 The sensor subsystem should contain an IMU (accelerometer, gyroscope, and magnetometer) for each arm, read and controlled by the ESP32 microcontroller via an SPI signal. The data should contain acceleration, rotational, and cardinal direction data and should be filtered properly so as to not miss vital information and not cause false signals. The IMUs will be powered by a 3.3V input via the Power Subsystem.
 
-\textbf{Requirement:}
+\textbf{Requirements:}
 \begin{itemize}
-    \item Must be able to constantly communicate with the 
-    ESP32 throughout a power cycle (1 hour). 
+    \item Must be able to constantly communicate with the ESP32 throughout a power cycle (1 hour). 
+    \item The accelerometer must be able to detect acceleration within ±1m/s.
+    \item The magnetometer must be able to detect North.
+    \item The gyroscope must be able to detect angular rate within ±15 dps.
+    
 \end{itemize}
 
 \subsubsection{LEDs Subsystem:} 
-The LED subsystem should be able to turn on the LEDs when powered by a 5V input from the control/power subsystems.
+The LED subsystem should be able to turn on the LEDs when powered by a 4.8V input from the control/power subsystems.
 
 \textbf{Requirement:} 
 \begin{itemize}
-    \item Must be able to turn on and off when instructed to by the microcontroller.
-    \item Must be bright enough for drivers to see at night at a reasonable distance (250 ft).
-    \item Must be able to display different colors for turn signals/hazards and braking.
+    \item Must be able to turn on and off given a 4.8V input.
+    \item Must be bright enough for drivers to see from 250ft.
+    
 \end{itemize}
 
 \subsection{Tolerance Analysis}
-We will be using several components operating at 3.3V and a 5V 
+We will be using several components operating at 3.3V and a 4.8V 
 battery that allows recharging. Therefore we need to use a 
 voltage regulator to step down the voltage for the sensors 
-and the ESP32. 
+and the ESP32. Considering that our product is a wearable, it is important that the component, specifically the linear regulator, doesn't get too hot. We can calculate the change in temperature of the linear regulator by first calculating the power dissipated using $I_{\text{out}} (V_{\text{in}} - V_{\text{out}})$ and multiplying it by the thermal resistance of the linear regulator ($\Theta_{jc}$).
 
-\noindent ESP32 worst case current draw: 240 mA
+\noindent ESP32 worst case current draw: 355 mA
 
 \noindent 2 IMUs, current draw for each: 4.6 mA
-\begin{align*}
-    \text{Input power} &= V_{\text{in}} \times I_{\text{load}} = 5V \times (0.24A + 2 \times 4.6mA) \\
-    \text{Output power} &= V_{\text{out}} \times I_{\text{load}} = 3.3V \times (240mA + 2 \times 4.6mA) \\
-    \text{Power dissipated} &= P_{\text{in}} - P_{\text{out}} \quad (\text{worst case}) \\
-    \text{Temp Rise} &= P_{\text{diss}} \times R_{\text{th}} = 19.9 \, ^{\circ}C \\
-    \text{Estimated total temp} &= 25 + 19.9 = 44.9 \, ^{\circ}C
-\end{align*}
 
-\noindent The temperature rise is well within the operating range of the voltage regulator, so we can use it for our design.
+\noindent Total current draw: 364.2 mA
 
+\noindent Assumed ambient temperature: 25°C 
+\[
+\Delta T = I_{\text{out}} (V_{\text{in}} - V_{\text{out}}) (\Theta_{\text{jc}}) = 0.36 \times (4.8 - 3.3) \times 5 = 2.7^\circ\text{C}
+\]
+\[
+\text{Final Temperature} = \Delta T + \text{Ambient Temperature} = 27.7^\circ\text{C}
+\]
 
-\noindent Additionally we need to make sure we aren’t 
-overloading the battery which can cause overheating. We will 
-need to be careful to not cause the battery or the voltage 
-regulator to overheat. Overheating would run the risk of 
-damaging the rider, as well as affecting the rest of the parts 
-negatively.
-
-\noindent LEDs current: \( 2A \) total 
-
-\noindent ESP32 and IMUs: \( 240mA + 2 \times 4.6mA \)
-\begin{align*}
-\text{Battery Efficiency} &= 90\% \\
-P_{\text{total}} &= V \times I = 5(2A + 240mA + 2 \times 4.6mA) = 11.246W \\
-P_{\text{loss}} &= \frac{P_{\text{total}}}{\text{Efficiency}} - P_{\text{total}} = 11.246W - 11.246W = 1.25W \\
-R_{\text{th}} &= 20 \, ^{\circ}C/W \\
-\text{Temp rise} &= P_{\text{loss}} \times R_{\text{th}} = 25 \, ^{\circ}C \\
-\text{Total temp} &= 25 + 25 = 50 \, ^{\circ}C
-\end{align*}
+\noindent The temperature rise is well within the operating range of the voltage regulator as well as not too warm for the user, so we can use it for our design.
 
 \section{Ethics and Safety}
 \subsection{Ethical Considerations}
@@ -253,7 +236,7 @@ if they dazzle other drivers, impairing their vision.
 There aren’t any safety regulatory requirements for 
 LEDs for bicycles relating to the brightness of the 
 lights, so we make sure we are following the vehicle 
-regulations for turn signals. \cite{CFR571_108} 
+regulations for turn signals. \cite{CFR571_108}  It is also important to note that wearing a battery is always dangerous. Because of this we will be using the guidelines provided by UIUC \cite{UIUCBatterySafety2023}.
 
 
 \newpage
