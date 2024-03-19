@@ -12,5 +12,5 @@
 
 # 03/19/2024
 ### Control Unit Schematic and PCB for the first PCB order
-![](Control_Unit_Schematic1.jpg)
-![](Control_Unit_PCB1.jpg)
+![](Control_Unit_Schematic1.png)
+![](Control_Unit_PCB1.png)
