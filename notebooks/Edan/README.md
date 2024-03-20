@@ -9,3 +9,8 @@
 * UART -> GPIO43, GPIO44
 * SPI -> GPIO10, GPIO11, GPIO12, GPIO13
 * LEDs -> GPIO1, GPIO2
+
+# 03/19/2024
+### Control Unit Schematic and PCB for the first PCB order
+![](Control_Unit_Schematic1.png)
+![](Control_Unit_PCB1.png)
