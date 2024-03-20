@@ -12,6 +12,7 @@
 \usepackage[left=0.8in, right=0.8in, top=1in, bottom=1in]{geometry}
 \usepackage{changepage}
 \usepackage{longtable}
+\usepackage{hyperref}
 
 \bibliographystyle{IEEEtran}
 % \setlength\topmargin{-1.1in} \addtolength\textheight{2.1in}
@@ -270,12 +271,29 @@ and the ESP32. Considering that our product is a wearable, it is important that 
 
 \subsection{Cost}
 The total cost of parts will be approximately $\$141.60$ and the expected labor costs are calculated as $\$40/hrs * 2.5 * 60 hrs = \$6,000$. This will be applied to all 3 team members so the total labor cost is $\$6,000 * 3 = \$18,000$. This comes out to a total cost of $\$18,141.60$.
-\begin{figure}[ht]
+\begin{table}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{cost_analysis.png}
-    \caption{Cost Analysis}
-    \label{fig:my_label2}
-\end{figure}
+    \begin{tabular}{@{} l l S[table-format=1.0] S[table-format=2.2] S[table-format=5.2] l @{}}
+    \toprule
+    \textbf{Description} & \textbf{Manufacturer} & {\textbf{Quantity}} & {\textbf{Price/unit}} & {\textbf{Total Price}} & {\textbf{Link}} \\
+    \midrule
+    Jacket              & Reebok               & 1                  & 20.00               & 20.00               & \href{https://www.walmart.com/ip/Reebok-Men-s-Hooded-Sweater-Fleece-Jacket-Sizes-M-2XL/3638204782}{Link} \\
+    velcro strips       & VELCRO Brand         & 1                  & 20.00               & 20.00               & \href{https://tinyurl.com/96a2mzmp}{Link} \\
+    ESP32               & Espressif Systems    & 1                  & 7.69                & 7.69                & \href{https://tinyurl.com/53m9m6st}{Link} \\
+    LED strips          & Aclorol              & 2                  & 5.99                & 11.98               & \href{https://tinyurl.com/bdjy37u6}{Link} \\
+    Battery             & elxjar               & 1                  & 24.99               & 24.99               & \href{https://tinyurl.com/3edpx9py}{Link} \\
+    Voltage Regulator   & STMicroElectronics   & 1                  & 6.95                & 6.95                & \href{https://pmdway.com/products/lm317-1-2-37v-1-5a-to-220-adjustable-linear-voltage-regulator-10-pack}{Link} \\
+    IMU breakout board  & Adafruit             & 2                  & 20.00               & 40.00               & \href{https://tinyurl.com/3r7yceb9}{Link} \\
+    \addlinespace
+    \parbox[t]{5cm}{\textbf{Expected Cost of Minor Components (Resistors, Capacitors, etc.)}} & {N/A} & {N/A} & {N/A} & 10.00  & \\
+    \addlinespace
+    \textbf{Components Total} & {N/A} & {N/A} & {N/A} & 141.60 & \\
+    \textbf{Labor}            & {N/A} & {3}    & {40.00} & 18000.00 & \\
+    \midrule
+    \textbf{Total}            & {N/A} & {N/A}  & {N/A} & 18141.60 & \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
 
 \newpage
 \subsection{Schedule}
@@ -290,7 +308,7 @@ The total cost of parts will be approximately $\$141.60$ and the expected labor 
 The biggest concern as it relates to ethics and safety for 
 this project is with regard to the safety of the user and 
 those on the road around the user. Under the IEEE code of 
-ethics, we are required to prioritize the 
+ethics (Code I1), we are required to prioritize the 
 safety of the public \cite{IEEEethics2024}. If the wearable isn’t user
 friendly enough, or restricts any movements, this can lead 
 to potentially catastrophic accidents. We can solve this by 
@@ -310,6 +328,7 @@ period of time.
 
 \subsection{Safety Considerations}
 We have to consider the brightness of the LEDs, and if they can be distracting to other drivers and pedestrians. Having bright LEDs can be beneficial for low light or adverse conditions, but can also be harmful if they dazzle other drivers, impairing their vision. There aren’t any safety regulatory requirements for LEDs for bicycles relating to the brightness of the lights, so we make sure we are following the vehicle regulations for turn signals. \cite{CFR571_108} There are also consumer product safety standards that we need to follow for wearable technology, such as those related to electronics devices and battery safety. It is also important to note that wearing a battery is always dangerous. Because of this we will be following the guidelines on battery safety outlined by UIUC \cite{UIUCBatterySafety2023}. In addition, we verified in our tolerance analysis that the linear regulators will not get too hot to ensure the safety of the users.
+
 
 
 \newpage
