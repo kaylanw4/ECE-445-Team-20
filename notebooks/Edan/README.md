@@ -20,3 +20,8 @@
 Our voltage regulator uses resistor values that we do not have provided, so we used the equation Vout = 1.25*(1+R1/R2) + R2*50e-6 to get new resistor values. The new resistor values to get each voltage are:
 * 3.3V -> R1 = 1500Ohms (1.5kOhms), R2 = 2330Oms (1kOhm + 1kOhm + 330Ohms)
 * 1.8V -> R1 = 5100Ohms (5.1kOhms), R2 = 1330Ohms (1kOhm + 330Ohms)
+
+# 03/27/2024
+### Control Unit Schematic and PCB for the first PCB order
+![](Control_Unit_Schematic2.png)
+![](Control_Unit_PCB2.png)
