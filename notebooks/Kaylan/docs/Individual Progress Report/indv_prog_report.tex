@@ -28,6 +28,7 @@
 \vspace*{\stretch{2}}
 {\Large Kaylan Wang}\\[1cm] 
 {\small kaylanw2@illinois.edu}\\[0cm] 
+{\small Team 20}\\[0cm]
 {\small Professor: Viktor Gruev}\\[0cm]
 {\small TA: Sanjana Pingali}\\[0cm]
 
@@ -41,11 +42,16 @@
 \tableofcontents 
 \newpage
 \section{Introduction}
+For our ECE 445 Senior Design project, our group is designing a gesture-based turn signaling system for riders. The system will use a combination of sensors and a microcontroller to detect the rider's hand gestures and activate the appropriate turn signal. The goal of the project is to improve the safety of cyclists by providing a more intuitive and convenient way to signal turns, slowing down, and accidents. 
+
+My responsibility within this project has been the sensor subsystem, focusing on the design and integration fo the IMU breakout board. The sensor subsytem's role is to capture the user's arm movements through the IMUs and communicate this data to the control unit via the i2c protocol. Initially, our design incorporated 2 LSM9DS1 IMUs \cite{STMicroelectronics2015LSM9DS1}; however, due to some supply constraints, we have since decided to use 4 ICM-20948 IMUs \cite{ICM20948Datasheet} (2 on each arm) to better model the user's arms. This shift required a redesign of the breakout board and the communication protocol between the IMUs and the control unit. 
+
+Currently, I am focusing on testing and verifying the communication between the IMU and the control unit, making sure the data is being transmitted correctly and minimizes noise through data filtering. Filtering is crucial to ensure that the control unit can accurately interpret the user's gestures, and will be discussed in more detail in the following sections. Additionally, I am doing research on how to communicate the data between the IMUs and the control unit, as well as possibly using a Recurrent Neural Network (RNN) to interpret the data.
 \section{Individual Design Work}
 \subsection{Design Considerations}
 \subsection{Testing/Verification}
 \section{Conclusion}
-this is the conclusion \cite{STMicroelectronics2015LSM9DS1}
+this is the conclusion 
 \newpage
 \bibliography{references}
 
