@@ -30,4 +30,5 @@ Our voltage regulator uses resistor values that we do not have provided, so we u
 ### Data Collection with ESP32 Devboard and IMU Breakoutboard
 We have been struggling to use the ESP32 Devboard, but found that the one we were using was broken and were able to use a new one to connect to the IMU breakout board. Below is the setup we used as well as a sample of the data we collected.
 ![](devboard_breakout_setup.jpg)
-![](sample_data.jpg)
+![](sample_data.jpg)<br />
+The data has a substantial amount of noise so it will be important for us to use filtering techniques to clean the data.
