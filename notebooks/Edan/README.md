@@ -32,3 +32,10 @@ We have been struggling to use the ESP32 Devboard, but found that the one we wer
 ![](devboard_breakout_setup.jpg)
 ![](sample_data.jpg)<br />
 The data has a substantial amount of noise so it will be important for us to use filtering techniques to clean the data.
+
+# 04/11/2024
+### Final Schematic/PCB
+![](Final_Schematic.pdf)
+![](Final_PCB.png)
+### Multiplie Addresses on I2C
+We were able to connect two sensors on the I2C bus by changing the address of one and accounting for it in software. We now need to connect the others by figuring out how to add aditional I2C pins on the esp32 through software.
