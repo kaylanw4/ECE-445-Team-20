@@ -39,3 +39,6 @@ The data has a substantial amount of noise so it will be important for us to use
 ![](Final_PCB.png)
 ### Multiplie Addresses on I2C
 We were able to connect two sensors on the I2C bus by changing the address of one and accounting for it in software. We now need to connect the others by figuring out how to add aditional I2C pins on the esp32 through software.
+
+# 04/12/2024
+Although we still have not been able to connect another IMU, we were able to use two of them to properly track the hand signals and print them to the serial monitor using the devboard and breakout boards. We plan on trying to connect the LED's and Power Supply so that it can run as an independent system while we wait for the pcb order to arrive.
