@@ -42,3 +42,6 @@ We were able to connect two sensors on the I2C bus by changing the address of on
 
 # 04/12/2024
 Although we still have not been able to connect another IMU, we were able to use two of them to properly track the hand signals from one hand and print them to the serial monitor using the devboard and breakout boards. We plan on trying to connect the LED's and Power Supply so that it can run as an independent system while we wait for the pcb order to arrive.
+
+# 04/18/2024
+We were able to successfully connect the LED's to turn on based on the hand gestures and connect the battery so that we can power everything as an independent system. The hand tracking is a bit finicky so we need to try and imporve it, and we need to connect a 3rd IMU to track the other hand, but other than that we have a functional device. From here our most imporant goal is to get the programming circuit working on the pcb so we can replace the devboard, fine tune the hand tracking, add the 3rd IMU, and encase everything to look professional.
