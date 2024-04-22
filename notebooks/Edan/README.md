@@ -45,3 +45,7 @@ Although we still have not been able to connect another IMU, we were able to use
 
 # 04/18/2024
 We were able to successfully connect the LED's to turn on based on the hand gestures and connect the battery so that we can power everything as an independent system. The hand tracking is a bit finicky so we need to try and imporve it, and we need to connect a 3rd IMU to track the other hand, but other than that we have a functional device. From here our most imporant goal is to get the programming circuit working on the pcb so we can replace the devboard, fine tune the hand tracking, add the 3rd IMU, and encase everything to look professional.
+
+# 04/21/2024
+We were able to succesfully add the programming circuit to the PCB and program the esp32. Some problems we had which we had to hotwire included a connection to groun which was in our cad but didn't seem to be connected on our PCB, and the DTR and 3V3 nets which were labeled one way in our schematic, but differently in the provided programing circuit schematics so they were never connected. We were able to upload a program to allow the LED's to flash and will attempt to add the sensors as well.
+![](Flashing_Lights.jpg)
