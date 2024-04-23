@@ -49,3 +49,6 @@ We were able to successfully connect the LED's to turn on based on the hand gest
 # 04/21/2024
 We were able to succesfully add the programming circuit to the PCB and program the esp32. Some problems we had which we had to hotwire included a connection to groun which was in our cad but didn't seem to be connected on our PCB, and the DTR and 3V3 nets which were labeled one way in our schematic, but differently in the provided programing circuit schematics so they were never connected. We were able to upload a program to allow the LED's to flash and will attempt to add the sensors as well.
 ![](Flashing_Lights.jpg)
+
+# 04/22/2024
+We were able to get the pcb to function the same as what we had on our breadboard meaning the esp32 can read the IMU signals, power the LEDs, and be self sustained with it's own battery. It is still quite inaccurate so we don't think we will have time to add a 3rd IMU but we will focus on imrpoving the accuracy of gesture recognition through IMU calibration as well as package it to be presentable in the demo.
