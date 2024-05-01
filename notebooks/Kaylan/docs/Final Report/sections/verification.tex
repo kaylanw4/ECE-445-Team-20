@@ -1,6 +1,36 @@
 \section{Verification}
 
 \subsection{Control Subsystem}
+Our control subsystem is used to run computations on input data from the sensor subsystem and output it through the LED subsystem. Because of this our requirements reflect how it interacts with these subsystems.
+
+The first requirement is that it must be able to communicate with LEDs and Sensors through the PCB. We were able to verify this by connecting them to the control unit and seeing that the LEDs turn on when given a signal from the control unit, and that it is able to read data from the IMUs. 
+
+Our second requirement is that it must be able to determine the correct turn signals from the IMUs. This was done in software and was easier to verify once the entire system was complete. We verified it by wearing the device and making each gesture 10 times, where we got 92.5\% accuracy. 
+
+Our third requirement is that it must be able to turn on the LEDs based on the corresponding turn signal. We did this by connecting the LEDs to the Control Unit and seeing that they turn on when given a turn signal.
 \subsection{Power Subsystem}
+Our Power subsystem had three necessary requirements in order for it to work properly with the rest of the system. The requirements along with how we verified them are listed below.
+
+The first requirement is that it must supply 3.3±0.3V to the IMUs and ESP32. We were able to verify this by using a multimeter to measure the voltage differential between the output of the linear voltage regulator and ground. We placed the red probe on the output pin of the linear voltage regulator and the black probe on the ground of the battery and read that the voltage differential is about 3.36V, meaning that anything connected between the two would receive about 3.36V.
+
+The second requirement is that it must supply 4.8±0.3V to the LEDs. We were able to verify this by using a multimeter to measure the voltage differential across the LEDs. We placed the red probe on the emitter pin of the BJT and the black probe on the ground of the battery. When supplying power from the ESP32 through the base of the BJT, we were able to measure about 5.03V, and the LED between them would turn on. We were able to lower the voltage to 4.8V, but ended up using 5V from the battery because the LEDs are technically rated for 4.8V, not 5V.
+
+The final requirement is that the temperature of the battery should stay below 50°C. We were able to verify this by leaving the entire system running for about half an hour and measuring the temperature of the battery with an infrared thermometer. We read that the temperature remained at 23.5°C which is way below our threshold of 50°C.
+
 \subsection{Sensor Subsystem}
+Our sensor subsystem consists of two 9 degree-of-freedom IMUs, meaning each one has an accelerometer, gyroscope, and magnetometer. For each IMU, we must verify that the sensor readings are accurate for each of the sensors that we use for gesture recognition. 
+
+The first requirement is that the accelerometer must be able to detect acceleration with an accuracy of ±1$\text{m/s}^2$. In order to verify this we connected each IMU to the ESP32 through the I2C protocol and measured the acceleration due to gravity for each of the three degrees of freedom (x, y, z directions). Then we can check the output on the serial monitor to make sure that the acceleration due to gravity is 9.8±1$\text{m/s}^2$ in the current direction parallel to gravity, and the acceleration readings in the other two directions are 0±1$\text{m/s}^2$. After conducting this verification, we found that the accelerometers were able to detect the acceleration in all three cartesian directions within 1$\text{m/s}^2$.
+
+The second requirement is that the magnetometer must be able to detect true north accurately. In order to verify this, we first connect the IMU to the ESP32 through the I2C protocol. Then we measured true north with the compass app on our smartphones and compared it to the direction of the IMU when it read zero degrees on the serial monitor. We did multiple trials for each of the IMUs and found that the magnetometers always detected north correctly within ±10°. More importantly than being able to detect north, is the measured angles of the two magnetometers need to be accurate relative to each other. In other words, the difference between the magnetometer readings of both IMUs when facing the same direction should be negligible. We verified this by leveling both IMUs so that they faced the same direction and then printed out the difference in magnetometer readings to the serial monitor, and found that the difference was always less than 5°. 
+
+There is no verification for the gyroscope as we did not utilize this sensor for the gesture recognition algorithm. 
+
 \subsection{LED Subsystem}
+The LEDs must be able to turn on in response to the other subsystems as well as be visible by a distance. 
+
+Our first requirement is that the LEDs must be able to turn on and off given a 4.8V input. We verified this by connecting our LEDs directly to our 4.8V battery and verifying that the LEDs turned on.
+
+Our second requirement is that the LEDs must be visible from at least 250 ft away. We verified this by having one person walk 250 ft away with the LEDs while the other 2 filmed that the LEDs are visible.
+
+\nocite{sparkfun2023icm20948}
