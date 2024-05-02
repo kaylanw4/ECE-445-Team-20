@@ -1,12 +1,10 @@
-\section{Appendix} \label{appendix:a}
+\section{} \label{appendix:a}
 
 % code and images go here
-
-
 \subsection{Subsystem Requirements and Verification Tables} \label{appendix:a:subsystemreqs}
 
 \subsubsection{Control Unit}
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \caption{Control Unit Subsystem Requirements and Verification}
     \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
@@ -40,7 +38,7 @@
     \end{table}
     \newpage
 \subsubsection{Power Subsystem}
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \caption{Power Subsystem Requirements and Verification}
     \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
@@ -61,24 +59,45 @@
     \bottomrule
     \end{tabular}
     \end{table}
-    \newpage
-
+    % \newpage
+\subsubsection{LEDs}
+    \begin{table}[ht]
+        \centering
+        \caption{LED Subsystem Requirements and Verification}
+        \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
+        \toprule
+        \textbf{Requirements} & \textbf{Verification} \\
+        \midrule
+        \begin{itemize}[leftmargin=*, nosep]
+            \item Must be able to turn on and off given a 4.8V input.
+            \item Must be bright enough for drivers to see from 250ft.
+            
+        \end{itemize} &
+        \begin{itemize}[leftmargin=*, nosep]
+            \item Connect the LEDs in series with a switch and 4.8V power source and verify that the LEDs turn on.
+            \item Walk 250 ft away from the LEDs while they are on and check that they are visible
+        
+        \end{itemize} \\
+        \bottomrule
+        \end{tabular}
+        \end{table}
+        \newpage
 \subsubsection{Sensor Subsystem}
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \caption{Sensor Subsystem Requirements and Verification}
     \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
     \toprule
     \textbf{Requirements} & \textbf{Verification} \\
     \midrule
-    \begin{itemize}[leftmargin=*, nosep, after=\strut]
+    \begin{itemize}[leftmargin=*, nosep]
         \item The accelerometer must be able to detect acceleration within ±1m/s.
         \item The magnetometer must be able to detect North.
         \item The gyroscope must be able to detect angular rate within ±15 dps.
         
         
     \end{itemize} &
-    \begin{itemize}[leftmargin=*, nosep, after=\strut]
+    \begin{itemize}[leftmargin=*, nosep]
         \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU acceleration readings from the accelerometer. Drop 3 times (once for each x, y, z, axis), and verify that the acceleration is g±5m/s
         \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU gauss reading from the magnetometer. Point the IMU in different directions and verify that the gauss peaks when pointing North.
         \item Connect the IMU to the ESP32 such that the ESP32 can print the IMU angular rate readings from the gyroscope. Spin the IMU using a motor and verify that the angular rate readings match the dps of the motor ±20 dps.
@@ -88,25 +107,33 @@
     \end{tabular}
     \end{table}
     \newpage
-\subsubsection{LEDs}
-\begin{table}[h]
-    \centering
-    \caption{LED Subsystem Requirements and Verification}
-    \begin{tabular}{p{0.45\linewidth}p{0.45\linewidth}}
-    \toprule
-    \textbf{Requirements} & \textbf{Verification} \\
-    \midrule
-    \begin{itemize}[leftmargin=*, nosep, after=\strut]
-        \item Must be able to turn on and off given a 4.8V input.
-        \item Must be bright enough for drivers to see from 250ft.
-        
-    \end{itemize} &
-    \begin{itemize}[leftmargin=*, nosep, after=\strut]
-        \item Connect the LEDs in series with a switch and 4.8V power source and verify that the LEDs turn on.
-        \item Walk 250 ft away from the LEDs while they are on and check that they are visible
+
+\subsection{Micellaneous} \label{appendix:a:code}
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/Final_PCB.png}
+        \caption{PCB layout of the final design}
+        \label{fig:pcb_layout}
+    \end{figure}
     
-    \end{itemize} \\
-    \bottomrule
-    \end{tabular}
-    \end{table}
-    \newpage
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/pcb_schematic.png}
+        \caption{PCB schematic of the final design}
+        \label{fig:pcb_schematic}
+    \end{figure}
+    
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/gesture_alg.png}
+        \caption{Gesture recognition algorithm}
+        \label{fig:gesture_alg}
+    \end{figure}
+    
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/calibration.png}
+        \caption{Calibration code for magnetometers}
+        \label{fig:calibration}
+    \end{figure}
